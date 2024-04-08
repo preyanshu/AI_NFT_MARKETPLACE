@@ -67,7 +67,7 @@ To deploy the project locally, follow these steps:
 ![Alt text](Static/Broadcast.png)
 ![Alt text](Static/MultiTransaction.png)
 
-[![Watch the video](Static/Page_!.png)]([https://youtu.be/vt5fpE0bzSY](https://youtu.be/L8ziNo-XWHc?si=dvh60WYHN-8TKJ5q))
+[![Watch the video](Static/Page_1.png)]([https://youtu.be/vt5fpE0bzSY](https://youtu.be/L8ziNo-XWHc?si=dvh60WYHN-8TKJ5q))
 
 
 ## Contributing
