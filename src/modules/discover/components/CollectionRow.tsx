@@ -12,17 +12,17 @@ const CollectionRow: FC<CollectionRowProps> = (props) => {
   const collection = useGetCollection(collectionId);
 
   if (collection?.type === ICollectionType.AUCTION) {
-    return <Cw721CollectionRow collectionId={collectionId} />
+    return <></>
   }
 
   if (collection?.type === ICollectionType.MARKETPLACE) {
     return <Cw721CollectionRow collectionId={collectionId} />
   }
   if (collection?.type === ICollectionType.CROWDFUND) {
-    return <Cw721CollectionRow collectionId={collectionId} />
+    return <></>
   }
   if (collection?.type === ICollectionType.EXCHANGE) {
-    return <Cw20CollectionRow collectionId={collectionId} />
+    return <></>
   }
 
   return null;

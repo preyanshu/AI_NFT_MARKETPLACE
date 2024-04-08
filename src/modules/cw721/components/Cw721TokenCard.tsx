@@ -21,8 +21,10 @@ interface Cw721TokenCardProps {
 const Cw721TokenCard: FC<Cw721TokenCardProps> = ({ tokenId, collectionId, contractAddress }) => {
   const { data: cw721 } = useGetCw721(contractAddress);
   const { data: token } = useGetCw721Token(contractAddress, tokenId);
+  console.log("contractAddress", contractAddress)
   const collection = useGetCollection(collectionId);
 
+  console.log("cw721", cw721, "token", token, "collection", collection)
 
   return (
     <CardOutline
@@ -32,7 +34,7 @@ const Cw721TokenCard: FC<Cw721TokenCardProps> = ({ tokenId, collectionId, contra
       <HStack justifyContent="space-between" mt="3">
         <CardStats
           title={cw721?.contractInfo?.name ?? ""}
-          body={token?.metadata?.name ?? ''}
+          tokenId={tokenId}
         />
       </HStack>
       <Box mt="1">

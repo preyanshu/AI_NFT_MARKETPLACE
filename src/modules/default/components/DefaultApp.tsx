@@ -35,7 +35,7 @@ const DefaultApp: FC<Props> = (props) => {
 
     return (
         <Layout>
-            <DiscoverPage />
+            {/* <DiscoverPage /> */}
         </Layout>
     )
 }

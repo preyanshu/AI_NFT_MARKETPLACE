@@ -16,14 +16,16 @@ const Page: FC<Props> = (props) => {
     const { params: { collection: collectionId, token: tokenId } } = props;
     const { getCollection } = useAppUtils();
     const collection = getCollection(collectionId) as IAuctionCollection;
+    console.log("collection",collection);
     const { error } = useGetCw721Token(collection?.cw721 ?? '', tokenId);
     if (error) {
-        return notFound()
+        return <></>
     }
+  
 
-    return (
+    return (<>
         <Cw721TokenPage tokenId={tokenId} collection={collection} contractAddress={collection.cw721} />
-    )
+        </>)
 }
 
 export default Page

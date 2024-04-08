@@ -29,6 +29,7 @@
     "jsoncrush": "^1.1.8",
     "lucide-react": "^0.90.0",
     "next": "^13.5.2",
+    "nextjs-progressbar": "^0.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.4.1"

@@ -16,7 +16,7 @@ const FeaturedItem: FC<FeaturedItemProps> = (props) => {
   const { data: token } = useGetCw721Token(collection.cw721, collection.featured || "");
   const [primary] = useToken("colors", ["primary.300"]);
   if (!token || !collection.featured) return null;
-  return (
+  return (<>
     <SimpleGrid columns={2} spacing="4">
       <GridItem>
         <Box>
@@ -44,7 +44,7 @@ const FeaturedItem: FC<FeaturedItemProps> = (props) => {
         </Box>
       </GridItem>
     </SimpleGrid>
-  );
+  </>);
 };
 
 

@@ -26,7 +26,7 @@ export interface BuyNowModalProps {
   modalType: ModalType.BuyNow;
   contractAddress: string;
   marketplaceAddress: string;
-  tokenId: string;
+  tokenId: string | string[];
 }
 
 export interface CrowdfundGroupBuyModalProps {

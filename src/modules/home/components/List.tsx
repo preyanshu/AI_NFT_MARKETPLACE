@@ -32,7 +32,7 @@ const EmbeddableList: FC<Props> = (props) => {
 
     return (
         <Box py='48px'>
-            <VStack spacing={4} w='full' alignItems={'flex-start'}>
+            {/* <VStack spacing={4} w='full' alignItems={'flex-start'}>
                 <Flex w='full' gap='24px' direction={'column'}>
                     <Grid mb='24px' gap='8px' gridTemplateColumns={'86% 14%'}>
                         <Box h='40px'>
@@ -59,7 +59,7 @@ const EmbeddableList: FC<Props> = (props) => {
                         ))}
                     </SimpleGrid>
                 </Flex>
-            </VStack>
+            </VStack> */}
         </Box>
     )
 }

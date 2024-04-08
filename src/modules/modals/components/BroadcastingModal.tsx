@@ -17,7 +17,7 @@ interface OptionalProps {
   onNextStage?: () => void;
 }
 
-const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
+const BroadcastingModal: FC<TransactionModalProps & OptionalProps & any> = memo(
   function BroadcastingModal(props) {
     const [loading, setLoading] = useState<boolean>(true);
     const client = useAndromedaClient();
@@ -29,21 +29,39 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
     >();
 
     const broadcast = useCallback(async () => {
-      return client!.execute(
-        props.contractAddress,
-        props.msg,
+      // console.log("props_sp",)
+
+      const messages = props.msg; 
+
+// Define a function to create an object using client!.chainClient?.encodeExecuteMsg
+const createEncodedObject = (contractAddress: string, msg: any, funds: any): any => {
+  // Use client!.chainClient?.encodeExecuteMsg to encode the execute message
+  return client!.chainClient?.encodeExecuteMsg(contractAddress, msg, funds);
+};
+
+      const encodedObjects = messages.map((messageItem:any,index:any) => {
+        const msg= messageItem; // Destructure msg and funds from each message item
+        return createEncodedObject(props.contractAddress, msg, props.funds[index]);
+      });
+    
+      
+
+      
+      console.log("Encoded Object___", encodedObjects);
+      console.log("Broadcasting__props", props)
+      return client!.signAndBroadcast(
+        encodedObjects,"auto",props.memo
         // Here props fee can be used to set gas price from the estimated result. However gas price calculated is low so using auto till its fixed
-        "auto",
-        props.memo,
-        props.funds
+        
       );
     }, [props, client]);
+
 
     useEffect(() => {
       const broadcastTx = async () => {
         setLoading(true);
         try {
-          const resp: ExecuteResult | InstantiateResult = await broadcast();
+          const resp: ExecuteResult | InstantiateResult|any = await broadcast();
           setResult(resp);
           setLoading(false);
           if (props.onNextStage) props.onNextStage();
@@ -66,6 +84,8 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
       if (!result) return <></>;
       const { transactionHash } = result as ExecuteResult | InstantiateResult;
 
+     
+
       return (
         <Box
           sx={{
@@ -74,10 +94,11 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             padding: "16px",
             width: "100%",
             fontSize: "14px",
+            color:"black"
           }}
           mt="40px"
         >
-          <Text sx={{ fontWeight: "bold" }}>Transaction #</Text>
+          <Text sx={{ fontWeight: "bold",color:"black" }}>Transaction #</Text>
           <Text mt="6px" style={{ color: "#7F56D9" }}>
             <a
               href={
@@ -127,6 +148,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
                 alignItems: "center",
                 flexDirection: "column",
                 padding: "20px",
+                color:"black"
               }}
             >
               <Check
@@ -140,13 +162,15 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
               <Text mt="60px" sx={{ textAlign: "center", fontWeight: "bold" }}>
                 Transaction Successful!
               </Text>
+
               {TransactionInfo}
               <Center>
                 <Button
                   mt="40px"
                   variant="outline"
-                  sx={{ fontSize: "16px", padding: "10px 32px" }}
+                  sx={{ fontSize: "16px", padding: "10px 32px",color:"black" }}
                   onClick={close}
+                  
                 >
                   Close
                 </Button>

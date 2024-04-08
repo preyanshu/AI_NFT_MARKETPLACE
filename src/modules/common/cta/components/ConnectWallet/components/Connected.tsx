@@ -39,6 +39,7 @@ const Connected: FC<ConnectedProps> = (props) => {
               variant="outline"
               size="lg"
               borderColor={isOpen ? "primary.600" : "gray.300"}
+              colorScheme="purple" 
             >
               <HStack mr='2'>
                 <Image src={config?.iconUrls?.sm ?? ""} w="5" />

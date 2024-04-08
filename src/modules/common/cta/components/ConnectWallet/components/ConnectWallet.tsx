@@ -19,9 +19,10 @@ const ConnectWallet: FC<ConnectWalletProps> = (props) => {
   return (
     <Button
       leftIcon={<Icon as={Plus} boxSize={5} />}
-      colorScheme="purple"
+      // colorScheme="purple"
       onClick={open}
       isLoading={isLoading}
+      style={{color: "white"}}
     >
       Connect Wallet
     </Button>

@@ -35,17 +35,18 @@ const Cw721TokensList: FC<Cw721TokensListProps> = (props) => {
           onClick={() => setFilterOpen((prev) => !prev)}
           leftIcon={<SlidersHorizontal height={16} />}
           variant="outline"
+          style={{color: "#6B46C1"}}
         >
           Filter
         </Button>
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
+          <InputLeftElement pointerEvents="none" >
             <SearchIcon width={16} />
           </InputLeftElement>
           <Input placeholder="Collection, item or user" w="full" />
         </InputGroup>
         <Menu placement="bottom-end">
-          <MenuButton as={Button} variant="outline" minW="max-content">
+          <MenuButton as={Button} variant="outline" minW="max-content" style={{color: "#6B46C1"}}>
             Price: low to high
           </MenuButton>
           <MenuList>

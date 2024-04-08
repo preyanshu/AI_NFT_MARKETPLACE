@@ -63,33 +63,93 @@ const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
 // Displays EstimateFee Modal (with a condition of (props.simulate && props.onNextStep))
 // Repair note from fix/transaction-modal-processing: A bang operator (!) was appended to the props.simulate declaration causing inverse evaluations of the intended conditions
 const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
+  console.log("props_final", props.msg[0]);
   const client = useAndromedaClient();
   const { close, setError } = useGlobalModalContext();
   const [loading, setLoading] = useState<boolean>(true);
-  const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });
+  const [fee, setFee] = useState<any>({ amount: [], gas: "0" });
 
-  const totalFunds = useMemo(() => {
-    const sum = sumCoins([...fee.amount, ...props.funds]);
-    return sum;
-  }, [fee, props]);
+  // const totalFunds = useMemo(() => {
+  //   const sum = sumCoins([...fee.amount, ...props.funds]);
+  //   return sum;
+  // }, [fee, props]);
 
   useEffect(() => {
     const simulateFee = async () => {
       setLoading(true);
-      const getFee = () => {
-        console.log(client);
+      const getFee = (msgitem:any,funditem:any) => {
+        console.log("msgitem",msgitem);
+        console.log("funditem",funditem);
+        console.log("props.contractAddress",props.contractAddress);
         return client!.estimateExecuteFee(
           props.contractAddress,
-          props.msg,
-          props.funds,
+          msgitem,
+          funditem,
         );
       }
 
+
+
       try {
-        const estimatedFee = await getFee();
-        console.log(estimatedFee);
-        setFee(estimatedFee);
+
+        const msgItems: any = props.msg;
+        const fundItems: any = props.funds; // Assuming props.funds is an array of funds corresponding to msgItems
+        
+        
+        // Define an array to hold the promises for fee estimations
+        const feePromises: Promise<any>[] = [];
+        
+        msgItems.forEach((msgItem: any, index: number) => {
+          const fundItem = fundItems[index]; // Get the corresponding fund item
+        
+          // Call getFee to get the fee estimation for the current message item and fund item pair
+          const feePromise = getFee(msgItem, fundItem);
+        
+          // Push the fee promise into the feePromises array
+          feePromises.push(feePromise);
+        });
+        
+        try {
+          // Use Promise.all to wait for all fee estimations to resolve
+          const estimatedFees = await Promise.all(feePromises);
+        
+          let totalAmount = 0;
+          let totalGas = 0;
+        
+          // Iterate through the estimatedFees array to accumulate total amount and total gas
+          estimatedFees.forEach((feeItem) => {
+            // Extract amount and gas from the feeItem object
+            const amount = parseInt(feeItem.amount[0].amount) || 0; // Convert amount to number (default to 0 if undefined or NaN)
+            const gas = parseInt(feeItem.gas) || 0; // Convert gas to number (default to 0 if undefined or NaN)
+        
+            // Accumulate amount and gas to totals
+            totalAmount += amount;
+            totalGas += gas;
+          });
+        
+          // Construct the final output object
+          const finalOutput = {
+            amount: [{ amount: totalAmount.toString(), denom: 'uandr' }],
+            gas: totalGas
+          };
+        
+          // Output the final output object
+          console.log('Final Output:', finalOutput);
+          const estimatedFees2 = finalOutput;
+          console.log('Estimated Fees:', estimatedFees2);
+ 
+        // console.log(estimatedFee);
+        setFee(estimatedFees2);
         setLoading(false);
+        
+          // Return or use the finalOutput object as needed in your application logic
+        } catch (error) {
+          // Handle errors that occur during fee estimation
+          console.error('Error estimating fees:', error);
+        }
+
+// Log the estimated fees array for debugging purposes
+
       } catch (error) {
         setError(error as Error);
       }
@@ -98,15 +158,27 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
     const tId = setTimeout(() => {
       simulateFee();
     }, 500);
+    console.log("funds_f",props.funds);
 
     return () => clearTimeout(tId);
   }, [client, props, setError]);
+
+  const flattenedArray = props.funds.flatMap((innerArray:any) => innerArray);
+
+// Use reduce to calculate the total amount
+const totalAmount = flattenedArray.reduce((accumulator, currentValue) => {
+  // Convert amount from string to number and add to accumulator
+  const amount = parseInt(currentValue.amount);
+  return accumulator + amount;
+}, 0);
 
   return (
     <Box
       sx={{
         padding: "6px",
+        color:"black"
       }}
+
     >
       {loading ? (
         <ModalLoading title="Simulating">
@@ -170,21 +242,53 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
               <Box>{fee.gas}</Box>
             </Box>
             <Divider color='dark.300' />
-            {fee.amount.map((coin, index) => (
+            {console.log("fee",fee)}
+            {fee.amount.map((coin:any, index:any) => (
               <FeeAmount
                 key={`feeamount-${index}`}
                 coin={coin}
                 text="Cost Estimate"
               />
             ))}
-            {props.funds.map((coin, index) => (
-              <FeeAmount
-                key={`feeamount-${index}`}
-                coin={coin}
-                text="Funds"
-              />
-            ))}
-            {totalFunds && <FeeAmount coin={totalFunds} text="Total Funds" />}
+
+<Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
+          position: "relative",
+        }}
+      >
+        <Box>Fund</Box>
+        <Box>
+          {totalAmount && <>{totalAmount+" "}</>}
+             
+          <b>{fee.amount[0].denom} </b>
+        </Box>
+      </Box>
+
+
+<Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
+          position: "relative",
+        }}
+      >
+        <Box>Total</Box>
+        <Box>
+          {console.log("gas",parseInt(fee.gas))}
+          {console.log("amount",parseInt(fee.amount[0].amount))}
+
+          {totalAmount && <>{parseInt(totalAmount) +parseInt(fee.amount[0].amount) +" " }</>}
+             
+          <b>{fee.amount[0].denom} </b>
+        </Box>
+      </Box>
+            
           </Box>
 
           <Box

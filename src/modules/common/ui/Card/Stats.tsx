@@ -3,18 +3,18 @@ import React, { FC, ReactNode } from "react"
 
 interface Props {
     title: string;
-    body: string;
+    tokenId: string;
 }
 
 const CardStats: FC<Props> = (props) => {
-    const { title, body } = props;
+    const { title, tokenId } = props;
     return (
         <Box>
             <Text fontSize="xs" textStyle="light">
                 {title}
             </Text>
             <Text fontWeight="medium" fontSize="xs">
-                {body}
+                {tokenId}
             </Text>
         </Box>
     )

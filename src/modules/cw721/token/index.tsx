@@ -19,6 +19,7 @@ const Cw721TokenPage: FC<Props> = (props) => {
     const { contractAddress, tokenId, collection } = props;
     const { data: token } = useGetCw721Token(contractAddress, tokenId)
     const { data: allTokens } = useGetCw721Tokens(contractAddress)
+
     return (
         <Box>
             <SimpleGrid columns={2}>

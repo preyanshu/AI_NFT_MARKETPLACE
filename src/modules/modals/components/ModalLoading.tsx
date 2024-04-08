@@ -20,6 +20,7 @@ const ModalLoading: FC<ModalLoadingProps> = memo(function ModalLoading({
         alignItems: "center",
         flexDirection: "column",
         padding: "20px",
+        color:"black"
       }}
     >
       <Spinner label="" sx={{ width: "100px", height: "100px" }} />

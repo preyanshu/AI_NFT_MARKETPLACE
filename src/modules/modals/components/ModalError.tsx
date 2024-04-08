@@ -26,6 +26,8 @@ const ModalError: FC<PropsWithChildren> = memo(function ModalError({ children })
         flexDirection: "column",
         padding: "20px",
         fontSize: "14px",
+        color:"black"
+
       }}
     >
       <Center

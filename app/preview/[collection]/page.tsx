@@ -18,9 +18,9 @@ const Page: FC<Props> = (props) => {
     }
     console.log(collection)
 
-    return (
+    return (<>
         <CollectionRouter collectionId={collectionId} />
-    )
+        </>)
 }
 
 export default Page

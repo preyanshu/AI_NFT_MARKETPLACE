@@ -18,12 +18,15 @@ const Header: FC<HeaderProps> = (props) => {
           <Text fontSize="2xl" fontWeight="bold">
             {cw721?.contractInfo.name}
           </Text>
-          <Text textStyle="light" fontSize="sm">
+          <Text textStyle="light" fontSize="sm" style={{color:"#6B46C1"}}>
             Minter - <b>{cw721?.minter}</b>
           </Text>
           <Text fontWeight="light" fontSize="sm" mt="2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus, orci sit amet eleifend facilisis,
-            arcu eros gravida massa, id pharetra dui nisi a leo. Integer a tellus elit. Proin quis venenatis magna... <b>Read more</b>
+         <b> Welcome to the AI Model Marketplace! </b>
+
+Explore Unique AI Models as NFTs
+
+Discover a curated collection of AI models transformed into unique NFTs. Join our community and embrace the future of AI innovation!
           </Text>
         </Flex>
       </GridItem>

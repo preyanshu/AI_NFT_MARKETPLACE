@@ -21,6 +21,7 @@ const TransactionModal: React.FC<TransactionModalProps> = memo(
     }, [defaultProps]);
 
     const StageComponent = useMemo(() => {
+      console.log("prop", props);  
       switch (stage) {
         case 0:
           return (

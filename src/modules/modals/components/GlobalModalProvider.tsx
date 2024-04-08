@@ -97,7 +97,7 @@ const GlobalModalProvider: FC<GlobalModalProviderProps> = memo(
         <Modal isCentered size="xl" isOpen={isOpen} onClose={close}>
           <ModalOverlay />
           <ModalContent borderRadius="12px">
-            <ModalCloseButton />
+            <ModalCloseButton  style={{color:"red"}}/>
             <ModalBody>
               <ModalError>{renderComponent()}</ModalError>
             </ModalBody>

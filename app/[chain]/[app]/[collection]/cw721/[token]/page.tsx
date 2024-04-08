@@ -16,13 +16,14 @@ const Page: FC<Props> = (props) => {
     const { params: { collection: collectionId, token: tokenId } } = props;
     const { getCollection } = useAppUtils();
     const collection = getCollection(collectionId) as IAuctionCollection;
+    console.log("collection",collection);
     const { error } = useCodegenGeneratedAdoCw721NftinfoExtensionQuery({
         variables: {
             'ADO_cw721_address': collection.cw721,
             'ADO_cw721_cw721_nftInfo_tokenId': tokenId
         }
     });
-    console.log(error, "Error");
+    // console.log(error, "Error");
     if (error) {
         return notFound()
     }

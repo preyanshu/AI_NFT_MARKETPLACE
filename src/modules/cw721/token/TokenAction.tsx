@@ -23,14 +23,14 @@ const Cw721TokenAction: FC<Props> = (props) => {
             name={token?.metadata?.name ?? tokenId}
         />
     )
-    if (collection.type === ICollectionType.MARKETPLACE) return (
+    if (collection.type === ICollectionType.MARKETPLACE) return (<>
         <MarketplaceInfo
             collection={collection}
             collectionName={cw721?.contractInfo.name ?? 'Loading...'}
             tokenId={tokenId}
             name={token?.metadata?.name ?? tokenId}
         />
-    )
+    </>)
     if (collection.type === ICollectionType.CROWDFUND) return (
         <CrowdfundInfo
             collection={collection}
