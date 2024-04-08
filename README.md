@@ -74,4 +74,3 @@ To deploy the project locally, follow these steps:
 Contributions are welcome! Please open an issue or submit a pull request for any new features, improvements, or bug fixes.
 ```
 
-You can add photos and videos by providing their paths or URLs in the "Photos and Videos" section. Make sure to replace `"path/to/system_architecture.png"` with the actual path or URL to the system architecture image.
