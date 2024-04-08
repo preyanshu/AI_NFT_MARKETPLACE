@@ -5,9 +5,6 @@
 
 The AI Model Marketplace is a decentralized platform that facilitates the buying, selling, and licensing of AI models and algorithms. Powered by blockchain technology, our platform connects developers, data scientists, and organizations, enabling them to exchange innovative AI solutions across various industries.
 
-## System Architecture
-
-![System Architecture](path/to/system_architecture.png)
 
 ## Features
 
@@ -27,13 +24,13 @@ The AI Model Marketplace is a decentralized platform that facilitates the buying
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/ai-model-marketplace.git
+   git clone https://github.com/preyanshu/AI_NFT_MARKETPLACE.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd ai-model-marketplace
+   cd AI_NFT_MARKETPLACE
    ```
 
 3. Install dependencies:
@@ -66,6 +63,11 @@ To deploy the project locally, follow these steps:
 ## Photos and Videos
 
 ![Alt text](Static/Page_1.png)
+![Alt text](Static/Page_2.png)
+![Alt text](Static/Broadcast.png)
+![Alt text](Static/MultiTransaction.png)
+
+[Watch Video]([https://example.com/path/to/video.mp4](https://youtu.be/L8ziNo-XWHc?si=dvh60WYHN-8TKJ5q))
 
 
 ## Contributing
